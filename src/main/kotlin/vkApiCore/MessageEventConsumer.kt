@@ -1,9 +1,9 @@
 package vkApiCore
 
-import Database
-import User
 import com.petersamokhin.vksdk.core.model.event.MessageNew
 import eventConsumers.Locations
+import user.Database
+import user.User
 
 object MessageEventConsumer {
     fun consumeEvent(event: MessageNew) {

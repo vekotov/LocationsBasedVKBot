@@ -1,6 +1,6 @@
 package items
 
-import User
+import user.User
 
 open class BasicFoodItem(
     override val id: Int = -1,

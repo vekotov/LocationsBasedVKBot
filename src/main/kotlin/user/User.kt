@@ -1,3 +1,5 @@
+package user
+
 import eventConsumers.Locations
 import items.Item
 
@@ -7,6 +9,8 @@ class User {
     var saturation: Int = 0
     var hydration: Int = 0
     var energy: Int = 0
+    var x: Int = 0
+    var y: Int = 0
     var inventory: MutableMap<Int, Item> = mutableMapOf()
     var isBlocked: Boolean = false
     var location: Locations = Locations.NewbieMessage

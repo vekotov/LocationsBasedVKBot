@@ -1,16 +1,20 @@
-import Inventories.count
-import Inventories.itemId
+package user
+
+import eventConsumers.Locations
 import items.Item
 import items.ItemFactory
-import Users.hydration
-import Users.isBlocked
-import Users.location
-import Users.name
-import Users.saturation
-import eventConsumers.Locations
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
+import user.Inventories.count
+import user.Inventories.itemId
+import user.Users.hydration
+import user.Users.isBlocked
+import user.Users.location
+import user.Users.name
+import user.Users.saturation
+import user.Users.x
+import user.Users.y
 
 object Database {
     fun initialize() {
@@ -29,20 +33,16 @@ object Database {
             if (!isUserExist(user.id))
                 Users.insert {
                     it[id] = user.id
-                    it[name] = user.name
-                    it[saturation] = user.saturation
-                    it[hydration] = user.hydration
-                    it[isBlocked] = user.isBlocked
-                    it[location] = user.location.ordinal
                 }
-            else
-                Users.update({ Users.id eq user.id }) {
-                    it[name] = user.name
-                    it[saturation] = user.saturation
-                    it[hydration] = user.hydration
-                    it[isBlocked] = user.isBlocked
-                    it[location] = user.location.ordinal
-                }
+            Users.update({ Users.id eq user.id }) {
+                it[name] = user.name
+                it[saturation] = user.saturation
+                it[hydration] = user.hydration
+                it[isBlocked] = user.isBlocked
+                it[location] = user.location.ordinal
+                it[x] = user.x
+                it[y] = user.y
+            }
             commit()
         }
         saveInventory(user.id, user.inventory)
@@ -59,6 +59,8 @@ object Database {
                     user.hydration = it[hydration]
                     user.isBlocked = it[isBlocked]
                     user.location = Locations.values()[it[location]]
+                    user.x = it[x]
+                    user.y = it[y]
                 }
             }
             user.inventory = loadInventory(id)
@@ -102,6 +104,7 @@ object Database {
     }
 }
 
+
 object Users : Table() {
     val id = integer("id")
     val name = varchar("name", 50)
@@ -109,6 +112,8 @@ object Users : Table() {
     val hydration = integer("hydration")
     val isBlocked = bool("isBlocked")
     val location = integer("location")
+    val x = integer("x")
+    val y = integer("y")
 }
 
 object Inventories : Table() {

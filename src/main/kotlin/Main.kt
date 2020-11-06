@@ -1,3 +1,4 @@
+import user.Database
 import vkApiCore.LongPoller
 
 fun main() {

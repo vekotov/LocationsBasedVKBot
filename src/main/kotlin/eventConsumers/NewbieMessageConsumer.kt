@@ -1,8 +1,9 @@
 package eventConsumers
 
-import User
-import vkApiCore.LongPoller
 import com.petersamokhin.vksdk.core.model.event.MessageNew
+import user.Database
+import user.User
+import vkApiCore.LongPoller
 
 object NewbieMessageConsumer : MessageEventConsumer{
     override fun consumeEvent(event: MessageNew, user: User) {

@@ -1,9 +1,9 @@
 package eventConsumers
 
-import User
 import com.petersamokhin.vksdk.core.model.event.MessageNew
+import user.User
 
-enum class Locations() {
+enum class Locations {
     NewbieMessage {
         override fun consumeEvent(event: MessageNew, user: User) {
             NewbieMessageConsumer.consumeEvent(event, user)

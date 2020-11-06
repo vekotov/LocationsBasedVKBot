@@ -1,9 +1,10 @@
 package eventConsumers
 
-import User
-import helpers.Helpers
-import vkApiCore.LongPoller
 import com.petersamokhin.vksdk.core.model.event.MessageNew
+import helpers.Helpers
+import user.Database
+import user.User
+import vkApiCore.LongPoller
 
 object SettingNameMessageConsumer : MessageEventConsumer{
     override fun consumeEvent(event: MessageNew, user: User) {
@@ -22,7 +23,6 @@ object SettingNameMessageConsumer : MessageEventConsumer{
             }.execute()
             return
         }
-        val user = Database.loadUser(event.message.fromId)!!
         user.name = Helpers.sanitizeNickname(text)
         Database.saveUser(user)
         TODO("Добавить здесь вывод главного меню.")

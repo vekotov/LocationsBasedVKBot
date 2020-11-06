@@ -1,6 +1,6 @@
 package items
 
-import User
+import user.User
 
 abstract class Item {
     abstract val id : Int
